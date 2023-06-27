@@ -13,6 +13,7 @@ import com.pjfs.projetocna.domain.Cidade;
 import com.pjfs.projetocna.domain.Cliente;
 import com.pjfs.projetocna.domain.Endereco;
 import com.pjfs.projetocna.domain.Estado;
+import com.pjfs.projetocna.domain.ItemPedido;
 import com.pjfs.projetocna.domain.Pagamento;
 import com.pjfs.projetocna.domain.PagamentoComBoleto;
 import com.pjfs.projetocna.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.pjfs.projetocna.repositories.CidadeRepository;
 import com.pjfs.projetocna.repositories.ClienteRepository;
 import com.pjfs.projetocna.repositories.EnderecoRepository;
 import com.pjfs.projetocna.repositories.EstadoRepository;
+import com.pjfs.projetocna.repositories.ItemPedidoRepository;
 import com.pjfs.projetocna.repositories.PagamentoRepository;
 import com.pjfs.projetocna.repositories.PedidoRepository;
 import com.pjfs.projetocna.repositories.ProdutoRepository;
@@ -55,6 +57,9 @@ public class ProjetocnaApplication implements CommandLineRunner{
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetocnaApplication.class, args);
@@ -124,7 +129,18 @@ public class ProjetocnaApplication implements CommandLineRunner{
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pgto1, pgto2));
 		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
 		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 	}
 
 }
