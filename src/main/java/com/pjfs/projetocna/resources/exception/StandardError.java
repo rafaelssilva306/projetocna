@@ -2,7 +2,7 @@ package com.pjfs.projetocna.resources.exception;
 
 import java.io.Serializable;
 
-public class StandarError implements Serializable{
+public class StandardError implements Serializable{
 
      private static final long serialVersionUID = 1L;
 
@@ -10,7 +10,7 @@ public class StandarError implements Serializable{
     private String msg;
     private Long timeStamp;
 
-    public StandarError(Integer status, String msg, Long timeStamp) {
+    public StandardError(Integer status, String msg, Long timeStamp) {
         this.status = status;
         this.msg = msg;
         this.timeStamp = timeStamp;
